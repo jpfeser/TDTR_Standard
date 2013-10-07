@@ -8,7 +8,7 @@
 %   residuals, but you might want to weight these by the sensitivity,
 %   particularly if you don't intend to calculate the errorbars!
 
-function [Z,ratio_model]=TDTR_FIT_VV3(X,ratio_data,tdelay,TCR,tau_rep,f,lambda,C,t,eta,r_pump,r_probe,A_pump)
+function [Z,ratio_model]=TDTR_FIT(X,ratio_data,tdelay,TCR,tau_rep,f,lambda,C,h,eta,r_pump,r_probe,A_pump)
 
 %Define the variables to be fit
 %lambda(1)=X(1);
@@ -21,7 +21,7 @@ lambda(3) = X(2);
 %eta(1)=eta(2);
 
 % don't touch this -------------------
-[deltaR_model,ratio_model]=TDTR_REFL_VV3(tdelay,TCR,tau_rep,f,lambda,C,t,eta,r_pump,r_probe,A_pump);
+[deltaR_model,ratio_model]=TDTR_REFL(tdelay,TCR,tau_rep,f,lambda,C,h,eta,r_pump,r_probe,A_pump);
 %Uncomment the next three lines to see the non-linear optimization in
 %action!
 figure(10)

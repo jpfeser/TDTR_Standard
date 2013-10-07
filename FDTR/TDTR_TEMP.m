@@ -9,12 +9,12 @@
 %lambda: vector of thermal conductivities, 
 %   lambda(1)=top surface,(W/m-K)
 %C: vector of volumetric specific heat (J/m3-K)
-%t: thicknesses of each layer (layer N will NOT be used, semiinfinite)
+%h: thicknesses of each layer (layer N will NOT be used, semiinfinite)
 %r_pump: Pump spot size (m)
 %r_probe: Probe spot size (m)
 %A_pump: Pump power (W), used to ESTIMATE amplitude (not used for fitting)
 
-function [Integrand,G]=TDTR_TEMP_VV3(kvectin,freq,lambda,C,t,eta,r_pump,r_probe,A_pump)
+function [Integrand,G]=TDTR_TEMP(kvectin,freq,lambda,C,h,eta,r_pump,r_probe,A_pump)
 
 Nfreq=length(freq);
 kvect=kvectin'*ones(1,Nfreq);
@@ -45,12 +45,12 @@ if Nlayers~=1
         BB=gammanminus-gamman;
         temp1=AA.*Bplus+BB.*Bminus;
         temp2=BB.*Bplus+AA.*Bminus;
-        expterm=exp(unminus*t(n-1));
+        expterm=exp(unminus*h(n-1));
         Bplus=(0.5./(gammanminus.*expterm)).*temp1;
         Bminus=0.5./(gammanminus).*expterm.*temp2;
         % These next 3 lines fix a numerical stability issue if one of the
         % layers is very thick or resistive;
-        penetration_logic=logical(t(n-1)*abs(unminus)>100);  %if pentration is smaller than layer...set to semi-inf
+        penetration_logic=logical(h(n-1)*abs(unminus)>100);  %if pentration is smaller than layer...set to semi-inf
         Bplus(penetration_logic)=0;
         Bminus(penetration_logic)=1;
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

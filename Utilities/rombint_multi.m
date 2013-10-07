@@ -1,4 +1,4 @@
-function [sol,nfinal]=rombint_VV3(f,a,b,NN)
+function [sol,nfinal]=rombint_multi(f,a,b,NN)
 relerr=1;
 abserr=1;
 limit=1e-5;
